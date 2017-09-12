@@ -61,7 +61,7 @@ string operacion(string op,bool var[],char letras[],int n,bool imp=true){
         if(imp){
             cout <<" --> "<< op<<" ";
         }
-        op=operacion(op,var,letras,n,false);// se vuelve a llamar la funcion por si existe un segundo parentesis
+        op=operacion(op,var,letras,n,imp);// se vuelve a llamar la funcion por si existe un segundo parentesis
     }
     aux="";
     /*Se cambia las variables con su valor en la permutacion actual y se elimina los signos de negacion afectando al valor continuo*/
@@ -134,10 +134,13 @@ void permutacion(int c,bool var[],char letras[],string op,int n=0){
 int main()
 {
     string inp;  // string para almacenar la entrada
-    char aux[10]; // array para almacenar las variables ingresadas A-Z
+    char aux[22]; // array para almacenar las variables ingresadas A-Z
     bool error=false;//bool para error en entrada y para saber si hay un parentesis abierto o cerrado
     int i=0, cont =0,par=0;
     do{
+        for(int iaux=0;iaux<22;iaux++){
+            aux[iaux]='&';
+        }
         par=0;
         error=false;
         i=0;
@@ -167,7 +170,7 @@ int main()
                     error=true;
                 }
             }else if (inp[i]=='&' ||inp[i]=='|' ||inp[i]=='^'){
-                if(inp[i+1]=='&'|| inp[i+1]=='|'|| inp[i+1]=='^'||inp[i+1]==')'||(i>0 &&(inp[i-1]=='~'|| inp[i-1]=='('))){
+                if(inp[i+1]=='&'|| inp[i+1]=='|'|| inp[i+1]=='^'||inp[i+1]==')'||i==0 || i== inp.length()-1||inp[i-1]=='~'|| inp[i-1]=='('){
                     error=true;
                 }
             }else if (inp[i]>64 && inp[i]<91){
